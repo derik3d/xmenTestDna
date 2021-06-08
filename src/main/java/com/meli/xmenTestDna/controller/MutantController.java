@@ -20,9 +20,9 @@ public class MutantController {
 	@PostMapping("/mutant/")
 	public ResponseEntity<MutantResponseBody> isMutant(String[] dna) {
 		if(iMainService.isMutant(dna)) {
-			return ResponseEntity.status(HttpStatus.OK).build();
+			return new ResponseEntity<MutantResponseBody>(new MutantResponseBody("Congrats, you're a mutant"), HttpStatus.OK);
 		}else {
-			return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+			return new ResponseEntity<MutantResponseBody>(new MutantResponseBody("You're a plain human"), HttpStatus.FORBIDDEN );
 		}
 	}
 	

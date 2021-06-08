@@ -20,11 +20,11 @@ public class MainService implements IMainService {
 	public boolean isMutant(String... dna) {
 
 		//optimize dna sequence
-		String optimizedSequence = iTransformDataService.optimizeSequence(dna);
+		String madeSequence = iTransformDataService.makeSequence(dna);
 		//get hash of optimized sequence
-		String getSequenceHash = iTransformDataService.getOptimizedSequenceHash(optimizedSequence);
+		String getSequenceHash = iTransformDataService.getOptimizedSequenceHash(madeSequence);
 		//look for the sequence on db to save work
-		Optional<DnaSequenceDTO> findByIdSequenceOptimized = iDnaSequenceDAO.findById(optimizedSequence);
+		Optional<DnaSequenceDTO> findByIdSequenceOptimized = iDnaSequenceDAO.findById(madeSequence);
 		
 		//if already processed, return answer
 		if(findByIdSequenceOptimized.isPresent()) {
@@ -32,10 +32,10 @@ public class MainService implements IMainService {
 		}
 		
 		//if not, process sequence and calculate if is mutant or not
-		Boolean mutant = iMutantService.isMutant(optimizedSequence);
+		Boolean mutant = iMutantService.isMutant(madeSequence);
 		
 		//save on db
-		iDnaSequenceDAO.save(new DnaSequenceDTO(getSequenceHash, optimizedSequence, mutant));
+		iDnaSequenceDAO.save(new DnaSequenceDTO(getSequenceHash, madeSequence, mutant));
 		
 		//return if mutant finally
 		return mutant;
