@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class TransformDataService implements ITransformDataService{
 
 	public String makeSequence(String[] dna) {
-		return Arrays.asList(dna).stream().collect(Collectors.joining());
+		return Arrays.asList(dna).stream().collect(Collectors.joining()).toLowerCase();
 	}
 
 	public String getOptimizedSequenceHash(String optimizedSequence) {
