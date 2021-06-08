@@ -1,4 +1,4 @@
-package com.meli.xmenTestDna.dao;
+package com.meli.xmenTestDna.repository;
 
 import java.util.Optional;
 

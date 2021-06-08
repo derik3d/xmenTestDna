@@ -5,15 +5,18 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.meli.xmenTestDna.dao.IDnaSequenceRepository;
 import com.meli.xmenTestDna.entity.common.StatsResponseBody;
 import com.meli.xmenTestDna.entity.dto.DnaSequenceDAO;
+import com.meli.xmenTestDna.repository.IDnaSequenceRepository;
 
 @Service
 public class MainService implements IMainService {
 	
+	@Autowired
 	ITransformDataService iTransformDataService;
+	@Autowired
 	IMutantService iMutantService;
+	@Autowired
 	IDnaSequenceRepository iDnaSequenceRepository;
 
 	@Override
@@ -50,8 +53,8 @@ public class MainService implements IMainService {
 		Integer countByMutant = iDnaSequenceRepository.countByMutant(true);
 		//get number of humans
 		Integer countByHuman = iDnaSequenceRepository.countByMutant(false);
-		//calculate ratio mutants humans
-		Double ratio = countByMutant.doubleValue() / countByHuman.doubleValue();
+		//calculate ratio mutants humans if there are more than one human
+		Double ratio = countByHuman!=0?countByMutant.doubleValue() / countByHuman.doubleValue():null;
 		
 		//build response
 		return new StatsResponseBody(countByMutant, countByHuman, ratio) ;
