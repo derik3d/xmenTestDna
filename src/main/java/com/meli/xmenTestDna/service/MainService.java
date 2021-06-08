@@ -5,16 +5,16 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.meli.xmenTestDna.dao.IDnaSequenceDAO;
+import com.meli.xmenTestDna.dao.IDnaSequenceRepository;
 import com.meli.xmenTestDna.entity.common.StatsResponseBody;
-import com.meli.xmenTestDna.entity.dto.DnaSequenceDTO;
+import com.meli.xmenTestDna.entity.dto.DnaSequenceDAO;
 
 @Service
 public class MainService implements IMainService {
 	
 	ITransformDataService iTransformDataService;
 	IMutantService iMutantService;
-	IDnaSequenceDAO iDnaSequenceDAO;
+	IDnaSequenceRepository iDnaSequenceRepository;
 
 	@Override
 	public boolean isMutant(String... dna) {
@@ -24,7 +24,7 @@ public class MainService implements IMainService {
 		//get hash of optimized sequence
 		String getSequenceHash = iTransformDataService.getOptimizedSequenceHash(madeSequence);
 		//look for the sequence on db to save work
-		Optional<DnaSequenceDTO> findByIdSequenceOptimized = iDnaSequenceDAO.findById(madeSequence);
+		Optional<DnaSequenceDAO> findByIdSequenceOptimized = iDnaSequenceRepository.findById(madeSequence);
 		
 		//if already processed, return answer
 		if(findByIdSequenceOptimized.isPresent()) {
@@ -35,7 +35,7 @@ public class MainService implements IMainService {
 		Boolean mutant = iMutantService.isMutant(madeSequence);
 		
 		//save on db
-		iDnaSequenceDAO.save(new DnaSequenceDTO(getSequenceHash, madeSequence, mutant));
+		iDnaSequenceRepository.save(new DnaSequenceDAO(getSequenceHash, madeSequence, mutant));
 		
 		//return if mutant finally
 		return mutant;
@@ -45,9 +45,9 @@ public class MainService implements IMainService {
 	public StatsResponseBody getStats() {
 		
 		//get number of mutants
-		Integer countByMutant = iDnaSequenceDAO.countByMutant(true);
+		Integer countByMutant = iDnaSequenceRepository.countByMutant(true);
 		//get number of humans
-		Integer countByHuman = iDnaSequenceDAO.countByMutant(false);
+		Integer countByHuman = iDnaSequenceRepository.countByMutant(false);
 		//calculate ratio mutants humans
 		Double ratio = countByMutant.doubleValue() / countByHuman.doubleValue();
 		

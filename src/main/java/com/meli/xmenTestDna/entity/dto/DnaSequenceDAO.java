@@ -15,7 +15,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class DnaSequenceDTO {
+public class DnaSequenceDAO {
 
 	@Id
 	String hash;

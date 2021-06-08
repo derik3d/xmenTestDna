@@ -8,6 +8,7 @@ class XmenTestDnaApplicationTests {
 
 	@Test
 	void contextLoads() {
+		
 	}
 
 }
