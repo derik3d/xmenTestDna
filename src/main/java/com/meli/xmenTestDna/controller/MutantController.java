@@ -23,14 +23,22 @@ public class MutantController {
 	
 	@PostMapping("/mutant/")
 	public ResponseEntity<MutantResponseBody> isMutant(@RequestBody MutantRequestBody mutantRequestBody) {
+		
+		
 		try {
 			if(iMainService.isMutant(mutantRequestBody.getDna())) {
-				return new ResponseEntity<MutantResponseBody>(new MutantResponseBody("Congrats, you're a mutant"), HttpStatus.OK);
+				MutantResponseBody mutantResponseBody = new MutantResponseBody();
+				mutantResponseBody.setResult("Congrats, you're a mutant");
+				return new ResponseEntity<MutantResponseBody>(mutantResponseBody , HttpStatus.OK);
 			}else {
-				return new ResponseEntity<MutantResponseBody>(new MutantResponseBody("You're a plain human"), HttpStatus.FORBIDDEN );
+				MutantResponseBody mutantResponseBody = new MutantResponseBody();
+				mutantResponseBody.setResult("You're a plain human");
+				return new ResponseEntity<MutantResponseBody>(mutantResponseBody , HttpStatus.FORBIDDEN );
 			}
 		} catch (NoSuchAlgorithmException e) {
-			return new ResponseEntity<MutantResponseBody>(new MutantResponseBody("Error servidor"), HttpStatus.INTERNAL_SERVER_ERROR );
+			MutantResponseBody mutantResponseBody = new MutantResponseBody();
+			mutantResponseBody.setResult ("Error servidor NoSuchAlgorithmException");
+			return new ResponseEntity<MutantResponseBody>(mutantResponseBody, HttpStatus.INTERNAL_SERVER_ERROR );
 		}
 	}
 	

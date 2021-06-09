@@ -40,7 +40,7 @@ public class MainService implements IMainService {
 		//if not, process sequence and calculate if is mutant or not
 		Boolean mutant = iMutantService.isMutant(madeSequence, N);
 		
-		//save on db getSequenceHash, madeSequence, mutant
+		//save on db
 		DnaSequenceDAO dnaSequenceDAO = new DnaSequenceDAO();
 		dnaSequenceDAO.setHash(getSequenceHash);
 		dnaSequenceDAO.setSequence(madeSequence);
@@ -59,9 +59,12 @@ public class MainService implements IMainService {
 		Integer countByHuman = iDnaSequenceRepository.countByMutant(false);
 		//calculate ratio mutants humans if there are more than one human
 		Double ratio = countByHuman!=0?countByMutant.doubleValue() / countByHuman.doubleValue():null;
-		
+		StatsResponseBody statsResponseBody = new StatsResponseBody();
+		statsResponseBody.setCount_mutant_dna(countByMutant);
+		statsResponseBody.setCount_human_dna(countByHuman);
+		statsResponseBody.setRatio(ratio);
 		//build response
-		return new StatsResponseBody(countByMutant, countByHuman, ratio) ;
+		return  statsResponseBody;
 	}
 
 }
