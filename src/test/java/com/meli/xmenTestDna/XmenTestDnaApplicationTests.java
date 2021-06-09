@@ -25,7 +25,7 @@ import com.meli.xmenTestDna.service.IMutantService;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-		@AutoConfigureMockMvc
+@AutoConfigureMockMvc
 class XmenTestDnaApplicationTests {
 	
 

@@ -40,9 +40,12 @@ public class MainService implements IMainService {
 		//if not, process sequence and calculate if is mutant or not
 		Boolean mutant = iMutantService.isMutant(madeSequence, N);
 		
-		//save on db
-		iDnaSequenceRepository.save(new DnaSequenceDAO(getSequenceHash, madeSequence, mutant));
-		
+		//save on db getSequenceHash, madeSequence, mutant
+		DnaSequenceDAO dnaSequenceDAO = new DnaSequenceDAO();
+		dnaSequenceDAO.setHash(getSequenceHash);
+		dnaSequenceDAO.setSequence(madeSequence);
+		dnaSequenceDAO.setMutant(mutant);
+		iDnaSequenceRepository.save(dnaSequenceDAO);
 		//return if mutant finally
 		return mutant;
 	}
