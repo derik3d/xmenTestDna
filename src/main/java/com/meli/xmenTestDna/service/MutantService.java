@@ -26,7 +26,7 @@ public class MutantService implements IMutantService{
 	}
 
 	private Integer testHorizontal(char[] charArray, int N, int goal) {
-		if(goal==0)return 0;
+		//if(goal==0)return 0;
 		BaseConsumer baseConsumer = new BaseConsumer(goal);
 		for(int i=0; i<N ; i++) {
 			for(int j=0; j<N; j++) {

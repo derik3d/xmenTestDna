@@ -1,5 +1,6 @@
 package com.meli.xmenTestDna.service;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class MainService implements IMainService {
 	IDnaSequenceRepository iDnaSequenceRepository;
 
 	@Override
-	public boolean isMutant(String... dna) {
+	public boolean isMutant(String... dna) throws NoSuchAlgorithmException{
 
 		//matrix size
 		Integer N = dna.length;

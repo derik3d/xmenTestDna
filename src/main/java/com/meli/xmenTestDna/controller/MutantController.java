@@ -1,5 +1,7 @@
 package com.meli.xmenTestDna.controller;
 
+import java.security.NoSuchAlgorithmException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,10 +23,14 @@ public class MutantController {
 	
 	@PostMapping("/mutant/")
 	public ResponseEntity<MutantResponseBody> isMutant(@RequestBody MutantRequestBody mutantRequestBody) {
-		if(iMainService.isMutant(mutantRequestBody.getDna())) {
-			return new ResponseEntity<MutantResponseBody>(new MutantResponseBody("Congrats, you're a mutant"), HttpStatus.OK);
-		}else {
-			return new ResponseEntity<MutantResponseBody>(new MutantResponseBody("You're a plain human"), HttpStatus.FORBIDDEN );
+		try {
+			if(iMainService.isMutant(mutantRequestBody.getDna())) {
+				return new ResponseEntity<MutantResponseBody>(new MutantResponseBody("Congrats, you're a mutant"), HttpStatus.OK);
+			}else {
+				return new ResponseEntity<MutantResponseBody>(new MutantResponseBody("You're a plain human"), HttpStatus.FORBIDDEN );
+			}
+		} catch (NoSuchAlgorithmException e) {
+			return new ResponseEntity<MutantResponseBody>(new MutantResponseBody("Error servidor"), HttpStatus.INTERNAL_SERVER_ERROR );
 		}
 	}
 	

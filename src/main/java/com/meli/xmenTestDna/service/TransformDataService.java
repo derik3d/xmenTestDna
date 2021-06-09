@@ -14,16 +14,11 @@ public class TransformDataService implements ITransformDataService{
 		return Arrays.asList(dna).stream().collect(Collectors.joining()).toLowerCase();
 	}
 
-	public String getOptimizedSequenceHash(String optimizedSequence) {
-		try {
+	public String getOptimizedSequenceHash(String optimizedSequence) throws NoSuchAlgorithmException {
 			MessageDigest messageDigest;
 			messageDigest = MessageDigest.getInstance("SHA-256");
 			messageDigest.update(optimizedSequence.getBytes());
 			return new String(messageDigest.digest());
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-			return "";
-		}
 	}
 
 }

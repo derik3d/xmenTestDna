@@ -86,7 +86,7 @@ class XmenTestDnaApplicationTests {
 			  .andExpect(jsonPath("$.count_human_dna").value("0"))
 			  .andExpect(jsonPath("$.ratio").value(IsNull.nullValue()));
 			
-			
+
 
 
 			ResultActions perform3 = mvc.perform(post("/mutant/")
@@ -99,6 +99,18 @@ class XmenTestDnaApplicationTests {
 			
 
 			perform3.andExpect(status().isForbidden());
+
+
+			ResultActions perform3cpy = mvc.perform(post("/mutant/")
+				.content("{\"dna\":["
+						+ "\"AGCT\","
+						+ "\"AGCT\","
+						+ "\"GAAG\","
+						+ "\"AGAA\"]}")
+				.contentType(MediaType.APPLICATION_JSON));
+			
+
+			perform3cpy.andExpect(status().isForbidden());
 			
 
 			
@@ -122,6 +134,27 @@ class XmenTestDnaApplicationTests {
     			+ "acbde"
     			+ "abcbe"
     			+ "brzce"
+    			+ "",5);
+    	mutantMatrices.put(""
+    			+ "aaaaa"
+    			+ "ababe"
+    			+ "acade"
+    			+ "abcbe"
+    			+ "arzce"
+    			+ "",5);
+    	mutantMatrices.put(""
+    			+ "aaaab"
+    			+ "aaaae"
+    			+ "acbde"
+    			+ "abcbe"
+    			+ "brzce"
+    			+ "",5);
+    	mutantMatrices.put(""
+    			+ "aazab"
+    			+ "aazae"
+    			+ "aabde"
+    			+ "aacbe"
+    			+ "bazce"
     			+ "",5);
     	return mutantMatrices;
 	}
