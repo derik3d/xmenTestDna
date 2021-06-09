@@ -1,11 +1,8 @@
 package com.meli.xmenTestDna;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertAll;
+import org.junit.jupiter.api.Assertions;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -13,21 +10,20 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 
 import org.hamcrest.core.IsNull;
-import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
-import com.meli.xmenTestDna.repository.IDnaSequenceRepository;
+//import com.meli.xmenTestDna.repository.IDnaSequenceRepository;
 import com.meli.xmenTestDna.service.IMutantService;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
 		@AutoConfigureMockMvc
 class XmenTestDnaApplicationTests {
@@ -36,8 +32,8 @@ class XmenTestDnaApplicationTests {
     @Autowired
     private MockMvc mvc;
 
-    @Autowired
-    private IDnaSequenceRepository repo;
+    //@Autowired
+    //private IDnaSequenceRepository repo;
 
     @Autowired
     private IMutantService mutantService;
@@ -46,11 +42,11 @@ class XmenTestDnaApplicationTests {
     void testMatrixOperations(){
     	
     	for(Entry<String,Integer> entry : getMutantMatrices().entrySet())
-    		assertTrue( mutantService.isMutant(entry.getKey(), entry.getValue()) );
+    		Assertions.assertTrue( mutantService.isMutant(entry.getKey(), entry.getValue()) );
     	
 
     	for(Entry<String,Integer> entry : getHumanMatrices().entrySet())
-    		assertFalse( mutantService.isMutant(entry.getKey(), entry.getValue()) );
+    		Assertions.assertFalse( mutantService.isMutant(entry.getKey(), entry.getValue()) );
     	
     }
 
