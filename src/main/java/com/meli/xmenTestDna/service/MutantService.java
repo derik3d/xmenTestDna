@@ -17,7 +17,7 @@ public class MutantService implements IMutantService{
 		
 		char[] charArray = madeSequence.toCharArray();
 
-		mutations += testHorizontal(charArray,N,GOAL-mutations);
+		mutations+= testHorizontal(charArray,N,GOAL-mutations);
 		mutations += testVertical(charArray,N,GOAL-mutations);
 		mutations += testUpRightDiagonal(charArray,N,GOAL-mutations);
 		mutations += testDownRightDiagonal(charArray,N,GOAL-mutations);
@@ -74,7 +74,7 @@ public class MutantService implements IMutantService{
 		BaseConsumer baseConsumer = new BaseConsumer(goal);
 
 		int skipOffset = 0;
-		for(int j=N-1; j>-N; j++) {
+		for(int j=N-1; j>-N; j--) {
 			if(j<0)
 				skipOffset=-j;
 			int tempJ = j+skipOffset;
@@ -113,7 +113,7 @@ public class MutantService implements IMutantService{
 				}
 			}
 			
-			if(queue.stream().allMatch(queue.peek()::equals)) {
+			if(queue.stream().allMatch(queue.peek()::equals) && queue.size()==QUEUE_LIMIT) {
 				gotLineCounter++;
 				currentGotLine = true;
 			}

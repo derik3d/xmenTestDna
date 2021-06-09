@@ -1,12 +1,19 @@
 package com.meli.xmenTestDna;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.HashMap;
+import java.util.Map.Entry;
+
 import org.hamcrest.core.IsNull;
+import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +25,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
 import com.meli.xmenTestDna.repository.IDnaSequenceRepository;
+import com.meli.xmenTestDna.service.IMutantService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -31,11 +39,26 @@ class XmenTestDnaApplicationTests {
     @Autowired
     private IDnaSequenceRepository repo;
 
+    @Autowired
+    private IMutantService mutantService;
+    
+    @Test
+    void testMatrixOperations(){
+    	
+    	for(Entry<String,Integer> entry : getMutantMatrices().entrySet())
+    		assertTrue( mutantService.isMutant(entry.getKey(), entry.getValue()) );
+    	
+
+    	for(Entry<String,Integer> entry : getHumanMatrices().entrySet())
+    		assertFalse( mutantService.isMutant(entry.getKey(), entry.getValue()) );
+    	
+    }
+
 	@Test
 	void contextLoads() throws Exception {
+
 		
-		
-			ResultActions perform0 = mvc.perform(get("/stats/")
+		ResultActions perform0 = mvc.perform(get("/stats/")
 			  .contentType(MediaType.APPLICATION_JSON));
 			
 			perform0.andExpect(status().isOk())
@@ -90,9 +113,34 @@ class XmenTestDnaApplicationTests {
 			perform4.andExpect(status().isOk())
 			  .andExpect(jsonPath("$.count_mutant_dna").value("1"))
 			  .andExpect(jsonPath("$.count_human_dna").value("1"))
-			  .andExpect(jsonPath("$.ratio").value("1"));
+			  .andExpect(jsonPath("$.ratio").value("1.0"));
 			
 			
 	}
+	
+	HashMap<String,Integer> getMutantMatrices(){
+    	HashMap<String,Integer> mutantMatrices = new HashMap<>();
+    	mutantMatrices.put(""
+    			+ "baaab"
+    			+ "ababe"
+    			+ "acbde"
+    			+ "abcbe"
+    			+ "brzce"
+    			+ "",5);
+    	return mutantMatrices;
+	}
+	
+	HashMap<String,Integer> getHumanMatrices(){
+    	HashMap<String,Integer> humanMatrices = new HashMap<>();
+    	humanMatrices.put(""
+    			+ "AArcA"
+    			+ "abade"
+    			+ "bacde"
+    			+ "abcde"
+    			+ "rrbrr"
+    			+ "",5);
+    	return humanMatrices;
+	}
+	
 
 }
