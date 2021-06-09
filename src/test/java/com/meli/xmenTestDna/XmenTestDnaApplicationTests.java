@@ -36,17 +36,17 @@ class XmenTestDnaApplicationTests {
     //private IDnaSequenceRepository repo;
 
     @Autowired
-    private IMutantService mutantService;
+    private IMutantService iMutantService;
     
     @Test
     void testMatrixOperations(){
     	
     	for(Entry<String,Integer> entry : getMutantMatrices().entrySet())
-    		Assertions.assertTrue( mutantService.isMutant(entry.getKey(), entry.getValue()) );
+    		Assertions.assertTrue( iMutantService.isMutant(entry.getKey(), entry.getValue()) );
     	
 
     	for(Entry<String,Integer> entry : getHumanMatrices().entrySet())
-    		Assertions.assertFalse( mutantService.isMutant(entry.getKey(), entry.getValue()) );
+    		Assertions.assertFalse( iMutantService.isMutant(entry.getKey(), entry.getValue()) );
     	
     }
 
