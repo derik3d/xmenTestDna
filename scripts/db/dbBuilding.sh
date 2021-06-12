@@ -2,3 +2,4 @@
 rm -f create.sql
 cp ./../../target/sql/create.sql ./create.sql
 docker build -t magnetodb:latest .
+rm -f create.sql
