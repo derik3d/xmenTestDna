@@ -19,6 +19,15 @@ target/
 *.iml
 *.ipr
 
+# Local .terraform directories
+**/.terraform/*
+**/.terraform*
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
