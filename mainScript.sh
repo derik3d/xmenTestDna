@@ -12,6 +12,8 @@ cd ./scripts/db
 #go back
 cd ./../../
 
+#generate documentation
+mvn verify jacoco:report -DskipTests
 
 #get jar
 mvn clean package -Dspring.profiles.active=prod -Dmaven.test.skip=true
