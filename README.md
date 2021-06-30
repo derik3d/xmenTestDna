@@ -118,6 +118,31 @@ EXPOSE 3306
 ```
 
 
+
+
+### How to run locally, if needed (optional)
+
+- Follow the steps till here
+- run the script localRunScript.sh on bash
+
+```sh
+./localRunScript.sh
+```
+
+Lets see the script!
+
+```sh
+
+#!/bin/bash
+
+docker network create -d bridge magneto-network
+docker run --network=magneto-network -p 3306:3306 -d --name magnetodb magnetodb
+docker run --network=magneto-network -p 8080:8080 -d --name magnetoservice magnetoservice
+
+```
+
+that script creates a docker network where the images could work together.
+
 ### Push images to docker (step 2)
 
 Requirements
@@ -223,3 +248,10 @@ Ok! All manual work is finished!
 
 
 - Why I'm not a mutant? wait, I haven't sent my dna sequence yet... (runs fast to buy a genetic sequencer, then realizes those are too expensive)
+
+
+#Where to find the challenge related logic code
+
+- MutantService.java : summary, solves the matrix problem
+- MainService.java : Manages mutant service, implements the little stats logic and communicates to db
+
