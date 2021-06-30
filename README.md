@@ -250,7 +250,7 @@ Ok! All manual work is finished!
 - Why I'm not a mutant? wait, I haven't sent my dna sequence yet... (runs fast to buy a genetic sequencer, then realizes those are too expensive)
 
 
-#Where to find the challenge related logic code
+# Where to find the challenge related logic code
 
 - MutantService.java : summary, solves the matrix problem
 - MainService.java : Manages mutant service, implements the little stats logic and communicates to db
